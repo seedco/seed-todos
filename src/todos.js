@@ -28,6 +28,8 @@ const colorMap = {
 
 const matcher = /(FIXME|TODO|NOTE)(\(([^\)]+)\))?:(.*)/
 
+let debug = false
+
 const esprimaOpts = {
   comment: true,
   loc: true,
@@ -76,6 +78,9 @@ function getTodo(comment) {
 
 function searchFiles(...files) {
   return files.reduce((acc, file) => {
+    if (debug) {
+      console.log(file)
+    }
     const codePacket = esprima.parse(fs.readFileSync(file), esprimaOpts)
     const comments = codePacket.comments
     const todos = comments.map(comment => {
@@ -93,6 +98,10 @@ const filelist = args._
 
 if (args.o) {
   chalk.enabled = false
+}
+
+if (args.debug) {
+  debug = true
 }
 
 const output = report(

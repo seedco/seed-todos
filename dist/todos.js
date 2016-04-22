@@ -46,6 +46,8 @@ const colorMap = {
 
 const matcher = /(FIXME|TODO|NOTE)(\(([^\)]+)\))?:(.*)/;
 
+let debug = false;
+
 const esprimaOpts = {
   comment: true,
   loc: true,
@@ -98,6 +100,9 @@ function searchFiles() {
   }
 
   return files.reduce((acc, file) => {
+    if (debug) {
+      console.log(file);
+    }
     const codePacket = _esprimaFb2.default.parse(_fs2.default.readFileSync(file), esprimaOpts);
     const comments = codePacket.comments;
     const todos = comments.map(comment => {
@@ -115,6 +120,10 @@ const filelist = args._;
 
 if (args.o) {
   _chalk2.default.enabled = false;
+}
+
+if (args.debug) {
+  debug = true;
 }
 
 const output = report(searchFiles(...filelist));
