@@ -31,7 +31,8 @@ const matcher = /(FIXME|TODO|NOTE)(\(([^\)]+)\))?:(.*)/
 const esprimaOpts = {
   comment: true,
   loc: true,
-  sourceType: 'module'
+  sourceType: 'module',
+  tolerant: true
 }
 
 function assignee(todo) {
