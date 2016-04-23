@@ -1,9 +1,5 @@
 'use strict';
 
-var _acorn_loose = require('acorn/dist/acorn_loose');
-
-var acorn = _interopRequireWildcard(_acorn_loose);
-
 var _chalk = require('chalk');
 
 var _chalk2 = _interopRequireDefault(_chalk);
@@ -16,9 +12,9 @@ var _minimist = require('minimist');
 
 var _minimist2 = _interopRequireDefault(_minimist);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _babylon = require('babylon');
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
@@ -63,6 +59,11 @@ var esprimaOpts = {
   locations: true,
   sourceType: 'module'
   // tolerant: true
+};
+
+var parserOptions = {
+  sourceType: 'module',
+  plugins: ['flow', 'jsx', 'asyncFunctions', 'asyncGenerators', 'classConstructorCall', 'classProperties', 'decorators', 'doExpressions', 'exponentiationOperator', 'exportExtensions', 'functionBind', 'functionSent', 'objectRestSpread', 'trailingFunctionCommas']
 };
 
 function assignee(todo) {
@@ -113,12 +114,9 @@ function searchFiles() {
     if (debug) {
       console.log(file);
     }
-    var fileData = _fs2.default.readFileSync(file);
-    var comments = [];
-    var opts = Object.assign({
-      onComment: comments
-    }, esprimaOpts);
-    acorn.parse_dammit(fileData, opts);
+    var fileData = _fs2.default.readFileSync(file, { encoding: 'utf8' });
+    var parsed = (0, _babylon.parse)(fileData, parserOptions);
+    var comments = parsed.comments;
     var todos = comments.map(function (comment) {
       return getTodo(comment);
     }).filter(function (match) {

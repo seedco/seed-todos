@@ -1,8 +1,7 @@
-import * as acorn from 'acorn/dist/acorn_loose'
-
 import chalk from 'chalk'
 import fs from 'fs'
 import minimist from 'minimist'
+import { parse } from 'babylon'
 
 // This is a comment
 // FIXME: This is a fixme
@@ -39,6 +38,26 @@ const esprimaOpts = {
   locations: true,
   sourceType: 'module'
   // tolerant: true
+}
+
+const parserOptions = {
+  sourceType: 'module',
+  plugins: [
+    'flow',
+    'jsx',
+    'asyncFunctions',
+    'asyncGenerators',
+    'classConstructorCall',
+    'classProperties',
+    'decorators',
+    'doExpressions',
+    'exponentiationOperator',
+    'exportExtensions',
+    'functionBind',
+    'functionSent',
+    'objectRestSpread',
+    'trailingFunctionCommas'
+  ]
 }
 
 function assignee(todo) {
@@ -85,12 +104,9 @@ function searchFiles(...files) {
     if (debug) {
       console.log(file)
     }
-    const fileData = fs.readFileSync(file)
-    const comments = []
-    const opts = Object.assign({
-      onComment: comments
-    }, esprimaOpts)
-    acorn.parse_dammit(fileData, opts)
+    const fileData = fs.readFileSync(file, { encoding: 'utf8' })
+    const parsed = parse(fileData, parserOptions)
+    const comments = parsed.comments
     const todos = comments.map(comment => {
       return getTodo(comment)
     }).filter(match => !!match)
