@@ -1,6 +1,6 @@
 {
   "name": "@seed/seed-todos",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Todo parser",
   "main": "dist/todos.js",
   "scripts": {
