@@ -109,10 +109,6 @@ var filelist = args._.reduce(function (prev, pattern) {
   return prev.concat(_glob2.default.sync(pattern));
 }, []);
 
-if (args.o) {
-  chalk.enabled = false;
-}
-
 if (args.debug) {
   debug = true;
 }
