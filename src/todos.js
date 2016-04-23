@@ -1,5 +1,6 @@
 import chalk from 'chalk'
 import fs from 'fs'
+import glob from 'glob'
 import minimist from 'minimist'
 import { parse } from 'babylon'
 
@@ -118,7 +119,9 @@ function searchFiles(...files) {
 }
 
 const args = minimist(process.argv.splice(2), {})
-const filelist = args._
+const filelist = args._.reduce((prev, pattern) => {
+  return prev.concat(glob.sync(pattern))
+}, [])
 
 if (args.o) {
   chalk.enabled = false

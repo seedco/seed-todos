@@ -8,6 +8,10 @@ var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
+var _glob = require('glob');
+
+var _glob2 = _interopRequireDefault(_glob);
+
 var _minimist = require('minimist');
 
 var _minimist2 = _interopRequireDefault(_minimist);
@@ -130,7 +134,9 @@ function searchFiles() {
 }
 
 var args = (0, _minimist2.default)(process.argv.splice(2), {});
-var filelist = args._;
+var filelist = args._.reduce(function (prev, pattern) {
+  return prev.concat(_glob2.default.sync(pattern));
+}, []);
 
 if (args.o) {
   _chalk2.default.enabled = false;
