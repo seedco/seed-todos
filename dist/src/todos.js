@@ -34,7 +34,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 // TODO(john): This is an assigned todo
 // NOTE: This is a note
 
-/* TODO(james): This is a multi-line todo. It is
+/* TODO(verboseman): This is a multi-line todo. It is
 soooooooo long!
 So
 so so
@@ -124,7 +124,7 @@ if (debug) {
 
 var data = searchFiles.apply(undefined, _toConsumableArray(filelist));
 
-process.stdout.write((0, _colors2.default)(data));
+process.stdout.write((0, _colors2.default)(output));
 
 if (args.o) {
   _fs2.default.writeFileSync(args.o, (0, _markdown2.default)(data));

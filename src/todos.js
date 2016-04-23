@@ -1,8 +1,10 @@
-import chalk from 'chalk'
 import fs from 'fs'
 import glob from 'glob'
 import minimist from 'minimist'
 import { parse } from 'babylon'
+
+import colors from './reporters/colors'
+import markdown from './reporters/markdown'
 
 // This is a comment
 // FIXME: This is a fixme
@@ -10,7 +12,7 @@ import { parse } from 'babylon'
 // TODO(john): This is an assigned todo
 // NOTE: This is a note
 
-/* TODO(verboseman): This is a multi-line todo. It is
+/* TODO(james): This is a multi-line todo. It is
 soooooooo long!
 So
 so so
@@ -22,12 +24,6 @@ It has a whole ton of stuff!
 
 class Test {
   static testy = {} // This tests semi-crazy es6 syntax
-}
-
-const colorMap = {
-  NOTE: 'blue',
-  TODO: 'yellow',
-  FIXME: 'red'
 }
 
 const matcher = /(FIXME|TODO|NOTE)(\(([^\)]+)\))?:(.*)/
@@ -59,33 +55,6 @@ const parserOptions = {
     'objectRestSpread',
     'trailingFunctionCommas'
   ]
-}
-
-function assignee(todo) {
-  if (todo.assignee) {
-    return chalk.magenta(` (${todo.assignee})`)
-  }
-  return ''
-}
-
-function todos(data) {
-  return data.map(todo => {
-    const type = chalk[colorMap[todo.type]](`**${todo.type}**`)
-    const line = chalk.gray(`\`(line ${todo.line})\``)
-    return `-  [ ] ${type} ${line}${assignee(todo)}: ${todo.text}`
-  }).join('\n')
-}
-
-function files(data) {
-  return Object.keys(data).map(file => {
-    const todoText = todos(data[file])
-    return `## ${file}\n\n${todoText}`
-  }).join('\n\n')
-}
-
-function report(data) {
-  const fileText = files(data)
-  return chalk.gray(`# Project TODOs\n\n## TODO\n\n${fileText}\n`)
 }
 
 function getTodo(comment) {
@@ -136,14 +105,12 @@ if (debug) {
   console.log(filelist)
 }
 
-const output = report(
-  searchFiles(
-    ...filelist
-  )
+const data = searchFiles(
+  ...filelist
 )
 
+process.stdout.write(colors(data))
+
 if (args.o) {
-  fs.writeFileSync(args.o, output)
-} else {
-  process.stdout.write(output)
+  fs.writeFileSync(args.o, markdown(data))
 }
