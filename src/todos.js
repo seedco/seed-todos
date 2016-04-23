@@ -92,10 +92,6 @@ const filelist = args._.reduce((prev, pattern) => {
   return prev.concat(glob.sync(pattern))
 }, [])
 
-if (args.o) {
-  chalk.enabled = false
-}
-
 if (args.debug) {
   debug = true
 }
