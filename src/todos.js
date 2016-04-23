@@ -1,11 +1,8 @@
 import * as acorn from 'acorn/dist/acorn_loose'
 
 import chalk from 'chalk'
-import esprima from 'esprima'
 import fs from 'fs'
 import minimist from 'minimist'
-import textTable from 'text-table'
-import shift, { parseModule } from 'shift-parser'
 
 // This is a comment
 // FIXME: This is a fixme
