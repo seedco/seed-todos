@@ -8,10 +8,6 @@ var _chalk = require('chalk');
 
 var _chalk2 = _interopRequireDefault(_chalk);
 
-var _esprima = require('esprima');
-
-var _esprima2 = _interopRequireDefault(_esprima);
-
 var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
@@ -19,14 +15,6 @@ var _fs2 = _interopRequireDefault(_fs);
 var _minimist = require('minimist');
 
 var _minimist2 = _interopRequireDefault(_minimist);
-
-var _textTable = require('text-table');
-
-var _textTable2 = _interopRequireDefault(_textTable);
-
-var _shiftParser = require('shift-parser');
-
-var _shiftParser2 = _interopRequireDefault(_shiftParser);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
