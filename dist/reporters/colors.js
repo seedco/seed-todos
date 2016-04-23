@@ -31,7 +31,6 @@ function todos(data) {
   }, {
     align: ['l', 'l', 'l', 'r', 'l']
   });
-  console.log(rows);
   return (0, _textTable2.default)(rows);
 }
 

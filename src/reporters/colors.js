@@ -29,7 +29,6 @@ function todos(data) {
       'l'
     ]
   })
-  console.log(rows)
   return table(rows)
 }
 
