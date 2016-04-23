@@ -140,6 +140,11 @@ if (args.debug) {
   debug = true;
 }
 
+if (debug) {
+  console.log(args);
+  console.log(filelist);
+}
+
 var output = report(searchFiles.apply(undefined, _toConsumableArray(filelist)));
 
 if (args.o) {

@@ -128,6 +128,11 @@ if (args.debug) {
   debug = true
 }
 
+if (debug) {
+  console.log(args)
+  console.log(filelist)
+}
+
 const output = report(
   searchFiles(
     ...filelist
