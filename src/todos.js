@@ -1,8 +1,11 @@
+import * as acorn from 'acorn/dist/acorn_loose'
+
 import chalk from 'chalk'
-import esprima from 'esprima-fb'
+import esprima from 'esprima'
 import fs from 'fs'
 import minimist from 'minimist'
 import textTable from 'text-table'
+import shift, { parseModule } from 'shift-parser'
 
 // This is a comment
 // FIXME: This is a fixme
@@ -20,6 +23,10 @@ long!
 It has a whole ton of stuff!
 */
 
+class Test {
+  static testy = {} // This tests semi-crazy es6 syntax
+}
+
 const colorMap = {
   NOTE: 'blue',
   TODO: 'yellow',
@@ -31,10 +38,10 @@ const matcher = /(FIXME|TODO|NOTE)(\(([^\)]+)\))?:(.*)/
 let debug = false
 
 const esprimaOpts = {
-  comment: true,
-  loc: true,
-  sourceType: 'module',
-  tolerant: true
+  // comment: true,
+  locations: true,
+  sourceType: 'module'
+  // tolerant: true
 }
 
 function assignee(todo) {
@@ -81,8 +88,12 @@ function searchFiles(...files) {
     if (debug) {
       console.log(file)
     }
-    const codePacket = esprima.parse(fs.readFileSync(file), esprimaOpts)
-    const comments = codePacket.comments
+    const fileData = fs.readFileSync(file)
+    const comments = []
+    const opts = Object.assign({
+      onComment: comments
+    }, esprimaOpts)
+    acorn.parse_dammit(fileData, opts)
     const todos = comments.map(comment => {
       return getTodo(comment)
     }).filter(match => !!match)
