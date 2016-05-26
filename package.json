@@ -14,8 +14,8 @@
     "type": "git",
     "url": "git+https://github.com/seedco/seed-todos.git"
   },
-  "author": "",
-  "license": "UNLICENSED",
+  "author": "John Bragg @Seed <john@seed.co>",
+  "license": "MIT",
   "dependencies": {
     "babylon": "^6.7.0",
     "chalk": "^1.1.3",
