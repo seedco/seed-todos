@@ -17,7 +17,7 @@ Once installed, you can add it to your `package.json` as follows:
   }
 ```
 
-Then whenever you run `npm run todos` in your project, it will walk the given path globs, parsing any files it sees using babylon (so it will use your `.babelrc` if present), and pull out any FIXME, TODO, or NOTE comments into a markdown file (in the above case, the ouput would go into `todos.md`).
+Then whenever you run `npm run todos` in your project, it will walk the given path globs, parsing any files it sees using babylon (so it will use your `.babelrc` if present), and pull out any FIXME, TODO, or NOTE comments into a markdown file (in the above case, the output would go into `todos.md`).
 
 ### Why?
 
@@ -25,7 +25,9 @@ While there are several todo parsers on the market, none currently use babylon t
 
 ### Options
 
-There's really only one option at this point: `-o <file>` to specify your output file. If not given, it will output to `stdout`. Any other arguments will be interpreted as path globs to search for files with.
+There's really only one option at this point:
+
+ - `-o <file>`: specify an output file. If not given, it will output to `stdout`. Any other arguments will be interpreted as path globs to search for files with. Output format is markdown.
 
 ## Contributing
 
