@@ -1,6 +1,6 @@
 {
   "name": "@seed/todos",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Todo parser that uses babylon, Babel's parser",
   "main": "dist/todos.js",
   "scripts": {
