@@ -1,8 +1,17 @@
 {
   "name": "@seed/todos",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Todo parser that uses babylon, Babel's parser",
   "main": "dist/todos.js",
+  "keywords": [
+    "todo",
+    "todos",
+    "fixme",
+    "tofix",
+    "note",
+    "documentation",
+    "reminder"
+  ],
   "scripts": {
     "compile": "babel src/ --out-dir dist",
     "test": "npm run compile && dist/todos --debug 1 'src/**/*.js'",
